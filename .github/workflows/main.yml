@@ -27,4 +27,4 @@ jobs:
         context: ./
         file: ./Dockerfile
         push: true
-        tags: registry.ikt.im/api-docs:latest
+        tags: registry.ikt.im/private/sampsharp-api-docs:latest
