@@ -1,0 +1,30 @@
+name: Build image
+
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Out Repo 
+      uses: actions/checkout@v2
+        
+    - name: Login to GitHub Packages Docker Registry
+      uses: docker/login-action@v1
+      with:
+        registry: registry.ikt.im
+        username: ${{ secrets.REGISTRY_USER }}
+        password: ${{ secrets.REGISTRY_PASS }}
+        
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v2.5.0
+      with:
+        context: ./
+        file: ./Dockerfile
+        push: true
+        tags: registry.ikt.im/api-docs:latest
